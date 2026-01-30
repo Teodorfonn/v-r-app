@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vær App</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>  
+
+    <div class="glow" id="easter-egg"></div>
+
+    <div class = "weather-box">
+      <h1>Sjekk været</h1>
+
+    <!-- Skjema der brukeren kan skrive inn bynavn -->
+     <form method="POST">
+     <div class ="search">
+        <input type="text" name="city" placeholder="Skriv inn en by">
+        <button type="submit">Søk</button>
+     </div> </form>
+    </div>
+    {% if weather %}
+        {% if weather.error %}
+                <!-- Vis feilmelding hvis det er en feil -->             
+            <p>{{ weather.error }}</p>     
+        {% else %}
+
+         <!-- Vis temperatur og værbeskrivelse -->
+            <p>Det er {{ weather.temp }}°C i {{ weather.city }}</p>
+            <p>Vær: {{ weather.description }}</p>
+        {% endif %}
+    {% endif %}
+
+
+
+
+    {% if weather and "snø" in weather.description %}
+<script>
+    for (let i = 0; i < 40; i++) {
+        let snowflake = document.createElement("div");
+        snowflake.className = "snowflake";
+        snowflake.style.left = Math.random() * 100 + "vw";
+        snowflake.style.animationDuration = 5 + Math.random() * 5 + "s";
+        snowflake.style.opacity = Math.random();
+        document.body.appendChild(snowflake);
+    }
+</script>
+{% endif %}
+
+
+
+
+
+{% if weather and "regn" in weather.description %}
+<script>
+    for (let i = 0; i < 60; i++) {
+        let drop = document.createElement("div");
+        drop.className = "raindrop";
+        drop.style.left = Math.random() * 100 + "vw";
+        drop.style.animationDuration = 0.5 + Math.random() + "s";
+        document.body.appendChild(drop);
+    }
+</script>
+{% endif %}
+
+
+{% if weather and ("klar" in weather.description or "sol" in weather.description) %}
+<div class="sun"></div>
+{% endif %}
+
+
+
+
+{% if weather and ("overskyet" in weather.description or "skyer" in weather.description) %}
+<script>
+    for (let i = 0; i < 4; i++) {
+        let cloud = document.createElement("div");
+        cloud.className = "cloud";
+        cloud.style.top = 50 + i * 60 + "px";
+        cloud.style.animationDuration = 30 + Math.random() * 20 + "s";
+        document.body.appendChild(cloud);
+    }
+</script>
+{% endif %}
+
+
+{% if weather and "torden" in weather.description %}
+<script>
+    // Mørk bakgrunn
+    document.body.classList.add("thunder-bg");
+
+    // Lyn
+    let lightning = document.createElement("div");
+    lightning.className = "lightning";
+    document.body.appendChild(lightning);
+
+    // Kraftig regn
+    for (let i = 0; i < 80; i++) {
+        let drop = document.createElement("div");
+        drop.className = "heavy-rain";
+        drop.style.left = Math.random() * 100 + "vw";
+        drop.style.animationDuration = 0.4 + Math.random() * 0.6 + "s";
+        document.body.appendChild(drop);
+    }
+</script>
+{% endif %}
+
+
+
+{% if weather and weather.is_night %}
+<script>
+    document.body.classList.add("night");
+
+    // Lag stjerner
+    for (let i = 0; i < 80; i++) {
+        let star = document.createElement("div");
+        star.className = "star";
+        star.style.left = Math.random() * 100 + "vw";
+        star.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(star);
+    }
+</script>
+{% endif %}
+
+
+
+
+
+{% if weather and weather.city|lower == "fyrverkeri" %}
+<script>
+    document.body.classList.add("firework-bg");
+
+
+    function launchFirework() {
+        const firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.left = Math.random() * 100 + "vw";
+        firework.style.top = Math.random() * 50 + "vh";
+        document.body.appendChild(firework);
+
+        setTimeout(() => firework.remove(), 1000);
+    }
+
+    for (let i = 0; i < 15; i++) {
+        setTimeout(launchFirework, i * 300);
+    }
+</script>
+{% endif %}
+
+
+
+
+
+
+
+{% if weather and weather.special == "firework" %}
+<script>
+    document.body.classList.add("firework-bg");
+
+    function launchFirework() {
+        const firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.left = Math.random() * 100 + "vw";
+        firework.style.top = Math.random() * 50 + "vh";
+        document.body.appendChild(firework);
+
+        setTimeout(() => firework.remove(), 1000);
+    }
+
+    for (let i = 0; i < 15; i++) {
+        setTimeout(launchFirework, i * 300);
+    }
+</script>
+{% endif %}
+
+
+
+
+
+
+<script>
+    const egg = document.getElementById("easter-egg");
+
+    egg.addEventListener("click", () => {
+        alert("Har du prøvd å skrive 'fyrverkeri'? 🎆");
+    });
+</script>
+
+
+
+
+</body>
+</html>
